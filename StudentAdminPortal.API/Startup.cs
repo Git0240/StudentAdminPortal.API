@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentAdminPortal.API.DataModels;
+using StudentAdminPortal.API.Repositories;
 
 namespace StudentAdminPortal.API
 {
@@ -19,6 +20,8 @@ namespace StudentAdminPortal.API
             services.AddRazorPages();
             services.AddDbContext<StudentAdminContext>(option => 
             option.UseSqlServer(configRoot.GetConnectionString("StudentAdminPortalDb")));
+            services.AddScoped<IStudentRepository, SqlStudentRepository>();
+            services.AddAutoMapper(typeof(Startup).Assembly);
         }
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
